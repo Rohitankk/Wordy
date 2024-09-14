@@ -1,0 +1,24 @@
+module WordyApp{
+    typedef string letters[17];
+    typedef string playerWins[5][2];
+    typedef string playerWords[5][2];
+    exception alreadyLoggedIn{};
+    exception usernameMismatch{};
+    exception playersNotFound{};
+    exception invalidWord{};
+    exception invalidWordLength{};
+
+    interface Wordy{
+    string login(in string name, in string password) raises (usernameMismatch, alreadyLoggedIn);
+    void signOut(in string username);
+    boolean startGame(in string username) raises (playersNotFound);
+    letters requestLetters(in string username);
+    string sendWord(in string username, in string word) raises (invalidWordLength, invalidWord);
+    boolean checkTime(in string username, in long interval);
+    string getRoundWinner(in string username);
+    string getGameWinner(in string username);
+    boolean checkReadyStatus(in string username);
+    playerWins getTopPlayers();
+    playerWords getTopWords();
+    };
+};
